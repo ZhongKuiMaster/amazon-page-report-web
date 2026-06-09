@@ -11,6 +11,9 @@ export const analyticsConfig = {
   bingSiteVerification: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_BING_VERIFICATION,
   ),
+  baiduSiteVerification: normalizeOptionalValue(
+    process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION,
+  ),
   clarityProjectId: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
   ),

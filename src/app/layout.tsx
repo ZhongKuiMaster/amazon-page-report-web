@@ -46,6 +46,11 @@ export const metadata: Metadata = {
           "msvalidate.01": analyticsConfig.bingSiteVerification,
         }
       : {}),
+    ...(analyticsConfig.baiduSiteVerification
+      ? {
+          "baidu-site-verification": analyticsConfig.baiduSiteVerification,
+        }
+      : {}),
   },
 };
 
