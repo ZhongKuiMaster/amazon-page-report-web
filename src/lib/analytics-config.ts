@@ -3,8 +3,16 @@ function normalizeOptionalValue(value: string | undefined) {
   return normalized ? normalized : undefined;
 }
 
+const defaultAnalyticsConfig = {
+  ga4Id: "G-Z39MZHMTRF",
+  baiduSiteVerification: "codeva-43zVPFWyUS",
+  clarityProjectId: "x45gqlm3lv",
+} as const;
+
 export const analyticsConfig = {
-  ga4Id: normalizeOptionalValue(process.env.NEXT_PUBLIC_GA4_ID),
+  ga4Id:
+    normalizeOptionalValue(process.env.NEXT_PUBLIC_GA4_ID) ??
+    defaultAnalyticsConfig.ga4Id,
   googleSiteVerification: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_GSC_VERIFICATION,
   ),
@@ -13,10 +21,10 @@ export const analyticsConfig = {
   ),
   baiduSiteVerification: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_BAIDU_SITE_VERIFICATION,
-  ),
+  ) ?? defaultAnalyticsConfig.baiduSiteVerification,
   clarityProjectId: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
-  ),
+  ) ?? defaultAnalyticsConfig.clarityProjectId,
   cloudflareBeaconToken: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_CLOUDFLARE_BEACON_TOKEN,
   ),
