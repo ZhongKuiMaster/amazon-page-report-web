@@ -5,24 +5,10 @@ import { SiteFooter } from "@/components/site-footer";
 import { getHomeCopy, getLocalizedPath, type SupportedLocale } from "@/lib/i18n";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import { platformRoadmap } from "@/lib/site-structure";
-
-const externalWorkbenchEntry = {
-  key: "lemons7-workbench",
-  href: "https://www.lemons7.com/workbench",
-  index: "00",
-  name: {
-    en: "Ecommerce Visual & Copy Solutions",
-    zh: "电商视觉&文案解决方案",
-  },
-  description: {
-    en: "Open the dedicated workbench for ecommerce visuals and copy workflows.",
-    zh: "进入电商视觉与文案工作台，直接处理素材与内容产出。",
-  },
-  cta: {
-    en: "Open workbench",
-    zh: "打开工作台",
-  },
-} as const;
+import {
+  amazonAdsWorkbenchEntry,
+  ecommerceVisualWorkbenchEntry,
+} from "@/lib/workbench-links";
 
 function platformLabel(
   platform: (typeof platformRoadmap)[number],
@@ -47,13 +33,24 @@ export function HomePageContent({ locale }: { locale: SupportedLocale }) {
   );
   const homepageEntries = [
     {
-      key: externalWorkbenchEntry.key,
-      href: externalWorkbenchEntry.href,
-      indexLabel: externalWorkbenchEntry.index,
-      name: externalWorkbenchEntry.name[locale],
-      description: externalWorkbenchEntry.description[locale],
-      cta: externalWorkbenchEntry.cta[locale],
+      key: ecommerceVisualWorkbenchEntry.key,
+      href: ecommerceVisualWorkbenchEntry.href,
+      indexLabel: ecommerceVisualWorkbenchEntry.index,
+      eyebrow: ecommerceVisualWorkbenchEntry.eyebrow[locale],
+      name: ecommerceVisualWorkbenchEntry.name[locale],
+      description: ecommerceVisualWorkbenchEntry.description[locale],
+      cta: ecommerceVisualWorkbenchEntry.cta[locale],
       external: true,
+    },
+    {
+      key: amazonAdsWorkbenchEntry.key,
+      href: amazonAdsWorkbenchEntry.href,
+      indexLabel: amazonAdsWorkbenchEntry.index,
+      eyebrow: amazonAdsWorkbenchEntry.eyebrow[locale],
+      name: amazonAdsWorkbenchEntry.name[locale],
+      description: amazonAdsWorkbenchEntry.description[locale],
+      cta: amazonAdsWorkbenchEntry.cta[locale],
+      external: false,
     },
     ...homepagePlatforms.map((platform, index) => {
       const labels = platformLabel(platform, locale);
@@ -61,7 +58,8 @@ export function HomePageContent({ locale }: { locale: SupportedLocale }) {
       return {
         key: platform.key,
         href: getLocalizedPath(locale, `/${platform.slug}`),
-        indexLabel: String(index + 1).padStart(2, "0"),
+        indexLabel: String(index + 2).padStart(2, "0"),
+        eyebrow: copy.platformMap,
         name: labels.name,
         description: labels.landingPageAngle,
         cta: locale === "zh" ? "进入平台" : "Open platform",
@@ -147,7 +145,7 @@ export function HomePageContent({ locale }: { locale: SupportedLocale }) {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="panel-kicker">{copy.platformMap}</p>
+                    <p className="panel-kicker">{entry.eyebrow}</p>
                     <h2 className="text-2xl font-semibold tracking-tight text-slate-950">
                       {entry.name}
                     </h2>

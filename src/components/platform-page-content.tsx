@@ -12,6 +12,7 @@ import { getPlatformToolMatrix } from "@/lib/page-visible-tools";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import { platformRoadmap } from "@/lib/site-structure";
 import type { ToolDefinition } from "@/lib/tools";
+import { amazonAdsWorkbenchEntry } from "@/lib/workbench-links";
 
 type PlatformPageContentProps = {
   locale: SupportedLocale;
@@ -50,6 +51,7 @@ export function PlatformPageContent({
     ...matrix.secondary,
     ...matrix.seoSupport,
   ]).map((tool) => localizeTool(tool, locale));
+  const showAmazonAdsEntry = platform.slug === "amazon";
 
   const collectionJsonLd = {
     "@context": "https://schema.org",
@@ -138,6 +140,41 @@ export function PlatformPageContent({
         </div>
 
         <div>
+          {showAmazonAdsEntry ? (
+            <div className="mb-4">
+              <Link
+                href={getLocalizedPath(locale, amazonAdsWorkbenchEntry.href)}
+                className="roadmap-card roadmap-card-live block"
+                data-analytics-event="platform_featured_entry_click"
+                data-analytics-category="navigation"
+                data-analytics-label={amazonAdsWorkbenchEntry.key}
+                data-analytics-destination={getLocalizedPath(locale, amazonAdsWorkbenchEntry.href)}
+                data-analytics-link-type="internal"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="tool-row-tag">
+                    {amazonAdsWorkbenchEntry.eyebrow[locale]}
+                  </span>
+                  <span className="text-xs font-medium uppercase tracking-[0.14em] text-slate-500">
+                    {platformName}
+                  </span>
+                </div>
+
+                <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950">
+                  {amazonAdsWorkbenchEntry.name[locale]}
+                </h2>
+                <p className="mt-4 text-sm leading-6 text-slate-600">
+                  {amazonAdsWorkbenchEntry.description[locale]}
+                </p>
+                <div className="mt-6">
+                  <span className="inline-flex min-h-11 items-center rounded-full border border-black/10 bg-white px-5 text-sm font-semibold text-slate-900 transition hover:border-slate-300 hover:bg-slate-100">
+                    {amazonAdsWorkbenchEntry.cta[locale]}
+                  </span>
+                </div>
+              </Link>
+            </div>
+          ) : null}
+
           <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
             {orderedTools.map((tool) => (
               <Link

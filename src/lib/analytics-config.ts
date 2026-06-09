@@ -7,6 +7,7 @@ const defaultAnalyticsConfig = {
   ga4Id: "G-Z39MZHMTRF",
   baiduSiteVerification: "codeva-43zVPFWyUS",
   clarityProjectId: "x45gqlm3lv",
+  cloudflareBeaconToken: "1452ffa2a49b45749c9a8ddb3c98cb2e",
 } as const;
 
 export const analyticsConfig = {
@@ -27,7 +28,7 @@ export const analyticsConfig = {
   ) ?? defaultAnalyticsConfig.clarityProjectId,
   cloudflareBeaconToken: normalizeOptionalValue(
     process.env.NEXT_PUBLIC_CLOUDFLARE_BEACON_TOKEN,
-  ),
+  ) ?? defaultAnalyticsConfig.cloudflareBeaconToken,
 } as const;
 
 export const hasOptionalAnalytics =

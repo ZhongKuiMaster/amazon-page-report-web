@@ -23,6 +23,7 @@ import { getAmazonSupportPagesForTool } from "@/lib/amazon-seo-support-pages";
 import { platformRoadmap } from "@/lib/site-structure";
 import { getToolPageContract } from "@/lib/tool-page-contracts";
 import { getToolBySlug, getToolExecutionProfile } from "@/lib/tools";
+import { ecommerceVisualWorkbenchEntry } from "@/lib/workbench-links";
 
 const runtimeFallbackBySlug: Record<string, string> = {
   "amazon-fba-calculator": "Run the FBA estimate",
@@ -167,6 +168,7 @@ export function ToolPageContent({
   const supportPages =
     platformSlug === "amazon" ? getAmazonSupportPagesForTool(sourceTool.slug) : [];
   const helpEntry = getToolHelpEntry(tool);
+  const showWorkbenchRecommendation = platformSlug === "amazon";
 
   const softwareJsonLd = {
     "@context": "https://schema.org",
@@ -415,6 +417,33 @@ export function ToolPageContent({
               </Link>
             );
           })}
+          {showWorkbenchRecommendation ? (
+            <a
+              key={ecommerceVisualWorkbenchEntry.key}
+              href={ecommerceVisualWorkbenchEntry.href}
+              className="surface-panel p-5 transition hover:border-teal-700"
+              data-analytics-event="product_recommendation_click"
+              data-analytics-category="recommendation"
+              data-analytics-label={sourceTool.slug}
+              data-analytics-destination={ecommerceVisualWorkbenchEntry.href}
+              data-analytics-link-type="external"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="tool-row-tag">
+                {locale === "zh" ? "产品推荐" : "Recommended"}
+              </span>
+              <h3 className="mt-4 text-xl font-semibold tracking-tight text-slate-950">
+                {ecommerceVisualWorkbenchEntry.name[locale]}
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                {ecommerceVisualWorkbenchEntry.description[locale]}
+              </p>
+              <p className="mt-4 text-sm font-semibold text-teal-800">
+                {ecommerceVisualWorkbenchEntry.cta[locale]}
+              </p>
+            </a>
+          ) : null}
         </div>
       </section>
       <SiteFooter locale={locale} />
