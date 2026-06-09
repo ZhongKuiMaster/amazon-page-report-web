@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Amazon Page Report Web
 
-## Getting Started
+Current scope:
 
-First, run the development server:
+- Amazon beta only
+- 30 retained tools
+- featured / secondary / support layering = `12 / 4 / 14`
+- deterministic-first launch mode
+
+## Local development
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start the dev server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open:
 
-## Learn More
+- `http://127.0.0.1:3000`
 
-To learn more about Next.js, take a look at the following resources:
+## Production build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Build the current app:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm build
+```
 
-## Deploy on Vercel
+Start a local production server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Or bind explicitly:
+
+```bash
+pnpm exec next start -H 127.0.0.1 -p 3027
+```
+
+## Environment
+
+Current beta runtime expects:
+
+### Required for production correctness
+
+- `NEXT_PUBLIC_SITE_URL`
+
+### Recommended for the current launch mode
+
+- `NEXT_PUBLIC_GUARDED_ASSIST_ENABLED=false`
+
+### Optional only if enabling assisted mode
+
+- `GUARDED_ASSIST_API_KEY`
+- `GUARDED_ASSIST_BASE_URL`
+- `GUARDED_ASSIST_ENGINE`
+
+Current local template:
+
+```env
+NEXT_PUBLIC_SITE_URL=https://amazon-page-report.com
+NEXT_PUBLIC_GUARDED_ASSIST_ENABLED=false
+GUARDED_ASSIST_API_KEY=
+GUARDED_ASSIST_BASE_URL=
+GUARDED_ASSIST_ENGINE=
+```
+
+## Verification commands
+
+### Local beta gate
+
+Checks featured tools, result-layer structure, and image-studio route integrity:
+
+```bash
+TOOL_PAGE_BASE_URL=http://127.0.0.1:3027 \
+NEXT_PUBLIC_SITE_URL=https://amazon-page-report.com \
+pnpm run verify:beta-launch
+```
+
+### Deployment smoke gate
+
+Checks entry pages, sample routes, removed tools, image-studio routing, and canonical basics:
+
+```bash
+TOOL_PAGE_BASE_URL=http://127.0.0.1:3027 \
+NEXT_PUBLIC_SITE_URL=https://amazon-page-report.com \
+pnpm run verify:deployment-smoke
+```
+
+## Deployment
+
+Recommended current release mode:
+
+- deterministic-only beta
+
+Recommended platform:
+
+- Vercel for hosting and deploy previews
+
+Current go-live sequence:
+
+1. Set production env:
+   - `NEXT_PUBLIC_SITE_URL`
+   - `NEXT_PUBLIC_GUARDED_ASSIST_ENABLED=false`
+2. Deploy current verified build
+3. Run:
+   - `pnpm run verify:deployment-smoke`
+4. Follow:
+   - `/Users/ortom/Documents/Amazon Page Report/reports/deployment-verification-runbook.md`
+5. Manually verify one live ASIN / URL flow on deployed infra
+
+## Source-of-truth documents
+
+- `/Users/ortom/Documents/Amazon Page Report/reports/local-beta-readiness-status.md`
+- `/Users/ortom/Documents/Amazon Page Report/reports/deployment-environment-checklist.md`
+- `/Users/ortom/Documents/Amazon Page Report/reports/deployment-verification-runbook.md`
+- `/Users/ortom/Documents/Amazon Page Report/reports/deployment-go-live-checklist.md`
+- `/Users/ortom/Documents/Amazon Page Report/reports/beta-deployment-mode-options.md`

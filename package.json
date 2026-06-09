@@ -6,7 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "verify:tools": "node scripts/verify-tool-matrix.js",
+    "verify:low-token": "node scripts/verify-low-token-fixtures.js",
+    "verify:live-listing-flows": "node scripts/verify-live-listing-flows.js",
+    "verify:first-tier-live-value": "node scripts/verify-first-tier-live-value.js",
+    "verify:first-tier-operator-value": "node scripts/verify-first-tier-operator-value.js",
+    "verify:first-tier-acceptance": "node scripts/verify-first-tier-acceptance.js",
+    "verify:priority-pages": "node scripts/verify-priority-tool-pages.js",
+    "verify:priority-results": "node scripts/verify-priority-deterministic-results.js",
+    "verify:next-low-token-pages": "node scripts/verify-next-low-token-pages.js",
+    "verify:next-low-token-results": "node scripts/verify-next-low-token-results.js",
+    "verify:second-tier-paid-ux": "node scripts/verify-second-tier-paid-ux.js",
+    "verify:shopify-layer-three-paid-ux": "node scripts/verify-shopify-layer-three-paid-ux.js",
+    "verify:shopify-layer-three-runtime-preview": "node scripts/verify-shopify-layer-three-runtime-preview.js",
+    "verify:shopify-layer-three-acceptance": "node scripts/verify-shopify-layer-three-acceptance.js",
+    "verify:layer-three-shell": "node scripts/verify-layer-three-shell.js",
+    "verify:layer-three-visible-pages": "node scripts/verify-layer-three-visible-pages.js",
+    "verify:layer-three-runtime-guardrails": "node scripts/verify-layer-three-runtime-guardrails.js",
+    "verify:runtime-human-ux": "node scripts/verify-runtime-human-ux.js",
+    "verify:website-event-contract": "node scripts/verify-website-event-contract.js",
+    "verify:observability-readiness": "node scripts/verify-observability-readiness.js",
+    "verify:beta-launch": "node scripts/verify-beta-launch-readiness.js",
+    "verify:deployment-smoke": "node scripts/verify-deployment-smoke.js"
   },
   "dependencies": {
     "next": "16.2.6",
@@ -20,6 +42,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
+    "playwright-core": "^1.60.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
