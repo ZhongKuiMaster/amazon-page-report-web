@@ -5,10 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { getHomeCopy, getLocalizedPath, type SupportedLocale } from "@/lib/i18n";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import { platformRoadmap } from "@/lib/site-structure";
-import {
-  amazonAdsWorkbenchEntry,
-  ecommerceVisualWorkbenchEntry,
-} from "@/lib/workbench-links";
+import { amazonAdsWorkbenchEntry } from "@/lib/workbench-links";
 
 function platformLabel(
   platform: (typeof platformRoadmap)[number],
@@ -25,23 +22,8 @@ function platformLabel(
 export function HomePageContent({ locale }: { locale: SupportedLocale }) {
   const copy = getHomeCopy(locale);
   const homePath = getLocalizedPath(locale);
-  const homepagePlatforms = platformRoadmap.filter(
-    (platform) =>
-      platform.key === "amazon" ||
-      platform.key === "tiktok-shop" ||
-      platform.key === "shopify",
-  );
+  const homepagePlatforms = platformRoadmap.filter((platform) => platform.key === "amazon");
   const homepageEntries = [
-    {
-      key: ecommerceVisualWorkbenchEntry.key,
-      href: ecommerceVisualWorkbenchEntry.href,
-      indexLabel: ecommerceVisualWorkbenchEntry.index,
-      eyebrow: ecommerceVisualWorkbenchEntry.eyebrow[locale],
-      name: ecommerceVisualWorkbenchEntry.name[locale],
-      description: ecommerceVisualWorkbenchEntry.description[locale],
-      cta: ecommerceVisualWorkbenchEntry.cta[locale],
-      external: true,
-    },
     {
       key: amazonAdsWorkbenchEntry.key,
       href: amazonAdsWorkbenchEntry.href,
