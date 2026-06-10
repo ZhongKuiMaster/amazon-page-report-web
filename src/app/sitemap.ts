@@ -20,6 +20,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: absoluteUrl("/account"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
+    {
+      url: absoluteUrl("/account/zh"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.45,
+    },
     ...trustPagePaths.map((path) => ({
       url: absoluteUrl(path),
       lastModified: now,
@@ -51,6 +63,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.92,
     },
     {
+      url: absoluteUrl("/amazon/amazon-ads-audit-workbench/zh"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.84,
+    },
+    {
       url: absoluteUrl("/amazon/alexa-for-shopping-listing-builder"),
       lastModified: now,
       changeFrequency: "weekly",
@@ -61,6 +79,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.82,
+    },
+    {
+      url: absoluteUrl("/amazon/amazon-growth-profit-planner"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.88,
+    },
+    {
+      url: absoluteUrl("/amazon/amazon-growth-profit-planner/zh"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
   ];
 }

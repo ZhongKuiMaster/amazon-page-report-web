@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AccountButton } from "@/components/account-button";
 import { JsonLd } from "@/components/json-ld";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SiteFooter } from "@/components/site-footer";
@@ -100,7 +101,10 @@ export function HomePageContent({ locale }: { locale: SupportedLocale }) {
               </p>
             </div>
 
-            <LanguageSwitcher locale={locale} />
+            <div className="flex flex-wrap justify-end gap-2">
+              <AccountButton locale={locale} />
+              <LanguageSwitcher locale={locale} />
+            </div>
           </div>
         </div>
       </section>

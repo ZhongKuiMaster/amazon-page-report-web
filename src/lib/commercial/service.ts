@@ -33,6 +33,14 @@ type RedemptionCodeRow = {
   expires_at?: string | null;
 };
 
+type LedgerRow = {
+  user_id: string;
+  tool_id: CommercialToolId;
+  delta: number;
+  reason: string;
+  created_at?: string;
+};
+
 export type EntitlementSnapshot = {
   configured: boolean;
   user: { id: string; email: string; wechatId?: string | null } | null;
@@ -131,6 +139,10 @@ async function grantCredits(userId: string, creditsByTool: Record<CommercialTool
       reason,
     })),
   );
+}
+
+function emptyCredits() {
+  return Object.fromEntries(commercialTools.map((tool) => [tool.id, 0])) as Record<CommercialToolId, number>;
 }
 
 export async function getEntitlements(email: string): Promise<EntitlementSnapshot> {
@@ -261,4 +273,87 @@ export async function consumeToolCredit(email: string, toolId: CommercialToolId)
     remainingCredits: nextCredits,
     message: "Credit consumed.",
   };
+}
+
+export function isCommercialAdminConfigured() {
+  return Boolean(process.env.COMMERCIAL_ADMIN_CODE?.trim());
+}
+
+export function verifyCommercialAdminCode(code: string) {
+  const expected = process.env.COMMERCIAL_ADMIN_CODE?.trim();
+  return Boolean(expected && code.trim() === expected);
+}
+
+export async function listCommercialUsersForAdmin() {
+  if (!isCommercialBackendConfigured()) {
+    return {
+      configured: false,
+      users: [],
+      message: "Commercial backend is not configured yet.",
+    };
+  }
+
+  const users = await supabaseSelect<CommercialUserRow>(
+    "commercial_users",
+    "select=id,email,wechat_id,created_at&order=created_at.desc&limit=100",
+  );
+  const balances = await supabaseSelect<BalanceRow>(
+    "tool_credit_balances",
+    "select=user_id,tool_id,remaining_credits,updated_at",
+  );
+  const ledger = await supabaseSelect<LedgerRow>(
+    "tool_credit_ledger",
+    "select=user_id,tool_id,delta,reason,created_at&order=created_at.desc&limit=200",
+  );
+
+  return {
+    configured: true,
+    users: users.map((user) => ({
+      id: user.id,
+      email: user.email,
+      wechatId: user.wechat_id ?? null,
+      createdAt: user.created_at ?? null,
+      balances: commercialTools.map((tool) => ({
+        toolId: tool.id,
+        name: tool.name,
+        zhName: tool.zhName,
+        remainingCredits: balances.find((item) => item.user_id === user.id && item.tool_id === tool.id)?.remaining_credits ?? 0,
+      })),
+      recentLedger: ledger
+        .filter((item) => item.user_id === user.id)
+        .slice(0, 5)
+        .map((item) => ({
+          toolId: item.tool_id,
+          delta: item.delta,
+          reason: item.reason,
+          createdAt: item.created_at ?? null,
+        })),
+    })),
+  };
+}
+
+export async function grantAdminCredits(email: string, credits: number, toolId?: CommercialToolId, reason = "admin-grant") {
+  if (!isCommercialBackendConfigured()) {
+    return unconfiguredSnapshot();
+  }
+
+  const normalizedEmail = normalizeEmail(email);
+  const existing = await findUser(normalizedEmail);
+  const user = existing ?? (await supabaseInsert<CommercialUserRow>("commercial_users", { email: normalizedEmail }))[0];
+
+  if (!user) {
+    throw new Error("COMMERCIAL_ADMIN_GRANT_FAILED");
+  }
+
+  const creditsByTool = emptyCredits();
+  if (toolId) {
+    creditsByTool[toolId] = credits;
+  } else {
+    for (const tool of commercialTools) {
+      creditsByTool[tool.id] = credits;
+    }
+  }
+
+  await grantCredits(user.id, creditsByTool, reason);
+  return toSnapshot(user, await getBalances(user.id), "Admin credits granted.");
 }

@@ -56,3 +56,55 @@ export const amazonAdsWorkbenchEntry: LocalizedWorkbenchEntry = {
     zh: "打开 Ads 工作台",
   },
 };
+
+export const amazonAlexaListingBuilderEntry: LocalizedWorkbenchEntry = {
+  key: "alexa-for-shopping-listing-builder",
+  href: "/amazon/alexa-for-shopping-listing-builder",
+  external: false,
+  index: "02",
+  eyebrow: {
+    en: "Alexa for Shopping",
+    zh: "Alexa for Shopping",
+  },
+  name: {
+    en: "Alexa for Shopping Listing Builder",
+    zh: "Alexa for Shopping 商品文案构建器",
+  },
+  description: {
+    en: "Turn Amazon listing facts, keywords, buyer questions, and use cases into answer-ready title, bullets, Search Terms, A+ and FAQ direction.",
+    zh: "把商品事实、关键词、买家问句和使用场景整理成更适合 Alexa for Shopping 理解的标题、五点、Search Terms、A+ 与 FAQ 方向。",
+  },
+  cta: {
+    en: "Open Alexa builder",
+    zh: "打开 Alexa 工具",
+  },
+};
+
+export const amazonGrowthProfitPlannerEntry: LocalizedWorkbenchEntry = {
+  key: "amazon-growth-profit-planner",
+  href: "/amazon/amazon-growth-profit-planner",
+  external: false,
+  index: "03",
+  eyebrow: {
+    en: "Growth and Profit",
+    zh: "增长与利润",
+  },
+  name: {
+    en: "Amazon Growth & Profit Planner",
+    zh: "Amazon 增长与利润规划器",
+  },
+  description: {
+    en: "Use SKU price, cost, FBA fee, inventory, traffic, conversion, and ads efficiency to decide whether to scale, hold, fix conversion, clear stock, or protect margin.",
+    zh: "基于 SKU 售价、成本、FBA 费用、库存、流量、转化和广告效率，判断该放量、控成本、修转化、清库存还是保利润。",
+  },
+  cta: {
+    en: "Open planner",
+    zh: "打开增长规划器",
+  },
+};
+
+export const amazonFlagshipToolEntries = [
+  amazonAdsWorkbenchEntry,
+  amazonAlexaListingBuilderEntry,
+  amazonGrowthProfitPlannerEntry,
+] as const;
