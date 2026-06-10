@@ -12,25 +12,25 @@ export type LocalizedWorkbenchEntry = {
 };
 
 export const ecommerceVisualWorkbenchEntry: LocalizedWorkbenchEntry = {
-  key: "lemons7-workbench",
-  href: "https://www.lemons7.com/workbench",
+  key: "amazon-alexa-copy-visual-plan",
+  href: "https://bit.ly/dealingnow",
   external: true,
   index: "00",
   eyebrow: {
-    en: "Solutions",
-    zh: "解决方案",
+    en: "Amazon Creative Plan",
+    zh: "Amazon Creative Plan",
   },
   name: {
-    en: "Ecommerce Visual & Copy Solutions",
-    zh: "电商视觉&文案解决方案",
+    en: "Amazon Alexa Copy & Visual Plan",
+    zh: "Amazon Alexa 文案&视觉方案",
   },
   description: {
-    en: "Open the dedicated workbench for ecommerce visuals and copy workflows.",
-    zh: "进入电商视觉与文案工作台，直接处理素材与内容产出。",
+    en: "Open the dedicated Amazon Alexa copy and visual planning offer before choosing a platform tool.",
+    zh: "优先进入 Amazon Alexa 文案与视觉方案，再选择具体平台工具。",
   },
   cta: {
-    en: "Open workbench",
-    zh: "打开工作台",
+    en: "Open plan",
+    zh: "查看方案",
   },
 };
 

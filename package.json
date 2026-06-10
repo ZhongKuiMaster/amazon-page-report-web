@@ -28,7 +28,11 @@
     "verify:website-event-contract": "node scripts/verify-website-event-contract.js",
     "verify:observability-readiness": "node scripts/verify-observability-readiness.js",
     "verify:beta-launch": "node scripts/verify-beta-launch-readiness.js",
-    "verify:deployment-smoke": "node scripts/verify-deployment-smoke.js"
+    "verify:deployment-smoke": "node scripts/verify-deployment-smoke.js",
+    "verify:ads-workbench-commercial": "node scripts/verify-ads-workbench-commercial-gate.mjs",
+    "verify:amazon-three-product-branches": "node scripts/verify-amazon-three-product-branch-gates.mjs",
+    "verify:amazon-three-product-seo-geo": "node scripts/verify-amazon-three-product-seo-geo.mjs",
+    "verify:commercial-p0-api": "node scripts/verify-commercial-p0-api.mjs"
   },
   "dependencies": {
     "next": "16.2.6",

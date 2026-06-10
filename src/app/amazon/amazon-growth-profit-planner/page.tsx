@@ -1,29 +1,29 @@
 import type { Metadata } from "next";
 
 import { AmazonProductSeoSection } from "@/components/amazon-product-seo-section";
-import { AmazonGrowthDeskWorkbench } from "@/components/amazon-growth-desk-workbench";
+import { AmazonGrowthProfitPlanner } from "@/components/amazon-growth-profit-planner";
 import { CommercialAccessPanel } from "@/components/commercial-access-panel";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ToolPageRecommendations } from "@/components/tool-page-recommendations";
 
 export const metadata: Metadata = {
-  title: "Amazon Ads Audit Workbench | Ads and Retail Diagnosis",
+  title: "Amazon Growth & Profit Planner | SKU Growth Decision Brief",
   description:
-    "Upload Amazon ads and business reports to diagnose PPC waste, TACOS pressure, keyword share gaps, listing conversion drag, and next operator actions.",
+    "Plan Amazon growth with traffic gap, margin floor, inventory risk, and action priority so expansion decisions stay grounded in profit reality.",
 };
 
-export default function AmazonAdsAuditWorkbenchPage() {
+export default function AmazonGrowthProfitPlannerPage() {
   return (
     <>
       <div className="border-b border-slate-200 bg-white px-4 py-3 lg:px-8">
         <div className="mx-auto flex w-full max-w-7xl justify-end">
-          <LanguageSwitcher locale="en" path="/amazon/amazon-ads-audit-workbench" />
+          <LanguageSwitcher locale="en" path="/amazon/amazon-growth-profit-planner" />
         </div>
       </div>
-      <CommercialAccessPanel locale="en" activeTool="ads-workbench" />
-      <AmazonGrowthDeskWorkbench locale="en" />
+      <CommercialAccessPanel locale="en" activeTool="growth-profit-planner" />
+      <AmazonGrowthProfitPlanner locale="en" />
       <ToolPageRecommendations locale="en" />
-      <AmazonProductSeoSection product="ads" />
+      <AmazonProductSeoSection product="growth" />
     </>
   );
 }

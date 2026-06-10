@@ -50,5 +50,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.92,
     },
+    {
+      url: absoluteUrl("/amazon/alexa-for-shopping-listing-builder"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/amazon/alexa-for-shopping-listing-builder/zh"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.82,
+    },
   ];
 }

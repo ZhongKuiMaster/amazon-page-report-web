@@ -7,23 +7,23 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { ToolPageRecommendations } from "@/components/tool-page-recommendations";
 
 export const metadata: Metadata = {
-  title: "Amazon Ads Audit Workbench | Ads and Retail Diagnosis",
+  title: "Amazon Ads 体检工作台 | 广告与零售诊断",
   description:
-    "Upload Amazon ads and business reports to diagnose PPC waste, TACOS pressure, keyword share gaps, listing conversion drag, and next operator actions.",
+    "上传 Amazon Ads 与业务报表，判断 PPC 浪费、TACOS 压力、关键词机会、Listing 转化拖累和下一步动作。",
 };
 
-export default function AmazonAdsAuditWorkbenchPage() {
+export default function AmazonAdsAuditWorkbenchZhPage() {
   return (
     <>
       <div className="border-b border-slate-200 bg-white px-4 py-3 lg:px-8">
         <div className="mx-auto flex w-full max-w-7xl justify-end">
-          <LanguageSwitcher locale="en" path="/amazon/amazon-ads-audit-workbench" />
+          <LanguageSwitcher locale="zh" path="/amazon/amazon-ads-audit-workbench" />
         </div>
       </div>
-      <CommercialAccessPanel locale="en" activeTool="ads-workbench" />
-      <AmazonGrowthDeskWorkbench locale="en" />
-      <ToolPageRecommendations locale="en" />
-      <AmazonProductSeoSection product="ads" />
+      <CommercialAccessPanel locale="zh" activeTool="ads-workbench" />
+      <AmazonGrowthDeskWorkbench locale="zh" />
+      <ToolPageRecommendations locale="zh" />
+      <AmazonProductSeoSection product="ads" locale="zh" />
     </>
   );
 }

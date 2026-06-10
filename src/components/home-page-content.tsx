@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { getHomeCopy, getLocalizedPath, type SupportedLocale } from "@/lib/i18n";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import { platformRoadmap } from "@/lib/site-structure";
-import { amazonAdsWorkbenchEntry } from "@/lib/workbench-links";
+import { ecommerceVisualWorkbenchEntry } from "@/lib/workbench-links";
 
 function platformLabel(
   platform: (typeof platformRoadmap)[number],
@@ -25,14 +25,14 @@ export function HomePageContent({ locale }: { locale: SupportedLocale }) {
   const homepagePlatforms = platformRoadmap.filter((platform) => platform.key === "amazon");
   const homepageEntries = [
     {
-      key: amazonAdsWorkbenchEntry.key,
-      href: amazonAdsWorkbenchEntry.href,
-      indexLabel: amazonAdsWorkbenchEntry.index,
-      eyebrow: amazonAdsWorkbenchEntry.eyebrow[locale],
-      name: amazonAdsWorkbenchEntry.name[locale],
-      description: amazonAdsWorkbenchEntry.description[locale],
-      cta: amazonAdsWorkbenchEntry.cta[locale],
-      external: false,
+      key: ecommerceVisualWorkbenchEntry.key,
+      href: ecommerceVisualWorkbenchEntry.href,
+      indexLabel: ecommerceVisualWorkbenchEntry.index,
+      eyebrow: ecommerceVisualWorkbenchEntry.eyebrow[locale],
+      name: ecommerceVisualWorkbenchEntry.name[locale],
+      description: ecommerceVisualWorkbenchEntry.description[locale],
+      cta: ecommerceVisualWorkbenchEntry.cta[locale],
+      external: ecommerceVisualWorkbenchEntry.external,
     },
     ...homepagePlatforms.map((platform, index) => {
       const labels = platformLabel(platform, locale);
@@ -40,7 +40,7 @@ export function HomePageContent({ locale }: { locale: SupportedLocale }) {
       return {
         key: platform.key,
         href: getLocalizedPath(locale, `/${platform.slug}`),
-        indexLabel: String(index + 2).padStart(2, "0"),
+        indexLabel: String(index + 1).padStart(2, "0"),
         eyebrow: copy.platformMap,
         name: labels.name,
         description: labels.landingPageAngle,
