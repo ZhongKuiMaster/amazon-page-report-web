@@ -5,55 +5,17 @@ export const visibleToolSlugs = [
   "tariff-calculator-amazon",
   "amazon-shipping-calculator",
   "amazon-profit-analyzer",
-  "amazon-sales-estimator",
-  "amazon-price-tracker",
-  "amazon-buy-box",
   "amazon-rank-tracker",
-  "amazon-keyword-tracker",
-  "amazon-competitor-monitoring",
   "amazon-competitor-analysis",
   "amazon-product-compliance",
   "amazon-listing-title-checker",
-  "amazon-image-compliance-checker",
-  "amazon-browse-search-keyword-checker",
-  "amazon-category-ungating",
-  "amazon-listing-optimization",
-  "amazon-review-analyzer",
-  "amazon-negative-keywords",
-  "amazon-a-plus-content",
-  "amazon-enhanced-brand-content",
-  "amazon-search-optimization",
-  "amazon-listing-images",
-  "amazon-storefront-design",
-  "amazon-keyword-research",
-  "amazon-trending-products",
-  "amazon-product-research",
-  "amazon-niche-finder",
-  "amazon-seller-analytics",
-  "amazon-brand-analytics",
-  "amazon-coupon-strategy",
-  "amazon-backend-keywords",
-  "tiktok-shop-seller-intake",
   "tiktok-shop-product-research",
-  "tiktok-shop-hook-writing",
   "tiktok-shop-short-video-brief",
-  "tiktok-shop-product-performance",
-  "tiktok-shop-kill-rules",
-  "tiktok-shop-creator-research",
-  "tiktok-shop-content-strategy",
   "shopify-product-page-audit",
+  "shopify-review-mining",
+  "shopify-competitor-teardown",
   "shopify-offer-positioning",
-  "shopify-landing-page-angle-builder",
-  "shopify-pricing-test-planner",
-  "shopify-pdp-copy-assembler",
-  "shopify-post-purchase-flow-planner",
-  "shopify-returns-friction-audit",
-  "shopify-faq-objection-builder",
-  "shopify-reorder-reminder-planner",
-  "shopify-promo-calendar-planner",
-  "shopify-merchandising-priority-mapper",
-  "shopify-launch-readiness-scorecard",
-  "shopify-channel-landing-router",
+  "shopify-email-flow-planner",
 ] as const;
 
 const platformToolMatrix: Partial<
@@ -65,56 +27,30 @@ const platformToolMatrix: Partial<
       "tariff-calculator-amazon",
       "amazon-shipping-calculator",
       "amazon-profit-analyzer",
-      "amazon-sales-estimator",
-      "amazon-price-tracker",
-      "amazon-buy-box",
       "amazon-product-compliance",
       "amazon-listing-title-checker",
-      "amazon-image-compliance-checker",
-      "amazon-category-ungating",
-      "amazon-listing-optimization",
-      "amazon-competitor-monitoring",
-      "amazon-keyword-tracker",
     ],
     secondary: [
       "amazon-rank-tracker",
       "amazon-competitor-analysis",
-      "amazon-browse-search-keyword-checker",
-      "amazon-review-analyzer",
     ],
   },
   "tiktok-shop": {
     featured: [
-      "tiktok-shop-seller-intake",
       "tiktok-shop-product-research",
-      "tiktok-shop-hook-writing",
       "tiktok-shop-short-video-brief",
     ],
-    secondary: [
-      "tiktok-shop-creator-research",
-      "tiktok-shop-content-strategy",
-      "tiktok-shop-product-performance",
-      "tiktok-shop-kill-rules",
-    ],
+    secondary: [],
   },
   shopify: {
     featured: [
-      "shopify-pricing-test-planner",
-      "shopify-pdp-copy-assembler",
-      "shopify-post-purchase-flow-planner",
-      "shopify-returns-friction-audit",
-      "shopify-faq-objection-builder",
-      "shopify-reorder-reminder-planner",
-      "shopify-launch-readiness-scorecard",
-      "shopify-channel-landing-router",
-    ],
-    secondary: [
       "shopify-product-page-audit",
+      "shopify-review-mining",
+      "shopify-competitor-teardown",
       "shopify-offer-positioning",
-      "shopify-landing-page-angle-builder",
-      "shopify-promo-calendar-planner",
-      "shopify-merchandising-priority-mapper",
+      "shopify-email-flow-planner",
     ],
+    secondary: [],
   },
 } as const;
 
@@ -129,20 +65,13 @@ export const betaFirstWaveFeaturedToolSlugs = [
   "amazon-profit-analyzer",
   "amazon-fba-calculator",
   "tariff-calculator-amazon",
+  "amazon-shipping-calculator",
   "amazon-product-compliance",
   "amazon-listing-title-checker",
-  "amazon-image-compliance-checker",
-  "amazon-category-ungating",
-  "amazon-price-tracker",
-  "amazon-buy-box",
-  "amazon-listing-optimization",
+  "amazon-rank-tracker",
+  "amazon-competitor-analysis",
 ] as const;
-export const betaDeferredFeaturedToolSlugs = [
-  "amazon-competitor-monitoring",
-  "amazon-keyword-tracker",
-  "amazon-sales-estimator",
-  "amazon-shipping-calculator",
-] as const;
+export const betaDeferredFeaturedToolSlugs = [] as const;
 export const betaSeoSupportToolSlugs = visibleToolSlugs.filter(
   (slug) =>
     !betaFeaturedToolSlugs.includes(
@@ -162,6 +91,13 @@ export const imageStudioToolSlugs = new Set<string>([
 ]);
 
 const visibleToolSlugSet = new Set<string>(visibleToolSlugs);
+
+function resolveVisibleTools(slugs: readonly string[]) {
+  return slugs
+    .filter((slug) => visibleToolSlugSet.has(slug))
+    .map((slug) => getToolBySlug(slug))
+    .filter((tool): tool is ToolDefinition => Boolean(tool));
+}
 
 export type CommercialToolLane = "core" | "control" | "risk" | "support";
 export type HomepagePriority = "hero" | "high" | "normal";
@@ -266,7 +202,9 @@ const commercialToolSlugMatrix: Partial<
     lanes: {
       core: [
         "shopify-product-page-audit",
+        "shopify-competitor-teardown",
         "shopify-offer-positioning",
+        "shopify-email-flow-planner",
         "shopify-landing-page-angle-builder",
       ],
       control: [
@@ -318,7 +256,7 @@ const homepagePriorityMap: Partial<
   shopify: {
     hero: ["shopify-product-page-audit", "shopify-pricing-test-planner"],
     high: ["shopify-offer-positioning", "shopify-launch-readiness-scorecard"],
-    normal: [],
+    normal: ["shopify-competitor-teardown", "shopify-email-flow-planner"],
   },
 } as const;
 
@@ -331,6 +269,7 @@ const primaryDecisionToolSlugs = new Set<string>([
   "tiktok-shop-seller-intake",
   "tiktok-shop-product-research",
   "shopify-product-page-audit",
+  "shopify-competitor-teardown",
   "shopify-pricing-test-planner",
   "shopify-launch-readiness-scorecard",
 ]);
@@ -378,12 +317,8 @@ export function getPlatformToolMatrix(platform: ToolDefinition["platform"]) {
     };
   }
 
-  const featured = config.featured
-    .map((slug) => getToolBySlug(slug))
-    .filter((tool): tool is ToolDefinition => Boolean(tool));
-  const secondary = config.secondary
-    .map((slug) => getToolBySlug(slug))
-    .filter((tool): tool is ToolDefinition => Boolean(tool));
+  const featured = resolveVisibleTools(config.featured);
+  const secondary = resolveVisibleTools(config.secondary);
   const featuredSet = new Set<string>(config.featured);
   const secondarySet = new Set<string>(config.secondary);
   const seoSupport = getVisibleTools().filter(
@@ -410,17 +345,12 @@ export function getCommercialToolMatrix(
     };
   }
 
-  const resolve = (slugs: readonly string[]) =>
-    slugs
-      .map((slug) => getToolBySlug(slug))
-      .filter((tool): tool is ToolDefinition => Boolean(tool));
-
   return {
-    core: resolve(config.lanes.core),
-    control: resolve(config.lanes.control),
-    risk: resolve(config.lanes.risk),
-    support: resolve(config.lanes.support),
-    anchors: resolve(config.anchors),
+    core: resolveVisibleTools(config.lanes.core),
+    control: resolveVisibleTools(config.lanes.control),
+    risk: resolveVisibleTools(config.lanes.risk),
+    support: resolveVisibleTools(config.lanes.support),
+    anchors: resolveVisibleTools(config.anchors),
   };
 }
 

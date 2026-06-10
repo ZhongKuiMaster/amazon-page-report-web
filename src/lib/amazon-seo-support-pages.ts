@@ -1,4 +1,5 @@
 import { getToolBySlug, type ToolDefinition } from "@/lib/tools";
+import { isVisibleToolSlug } from "@/lib/page-visible-tools";
 
 export type AmazonSupportPageKind =
   | "before-you-use"
@@ -602,23 +603,34 @@ const supportPageIndex = new Map(
 );
 
 export function getAmazonSupportPageEntry(toolSlug: string, supportSlug: string) {
+  if (!isVisibleToolSlug(toolSlug)) {
+    return undefined;
+  }
+
   return supportPageIndex.get(`${toolSlug}:${supportSlug}`);
 }
 
 export function getAmazonSupportPagesForTool(toolSlug: string) {
+  if (!isVisibleToolSlug(toolSlug)) {
+    return [];
+  }
+
   return amazonSupportPageEntries.filter((entry) => entry.toolSlug === toolSlug);
 }
 
 export function getAmazonSupportPageStaticParams() {
-  return amazonSupportPageEntries.map((entry) => ({
-    platform: "amazon",
-    slug: entry.toolSlug,
-    supportSlug: entry.supportSlug,
-  }));
+  return amazonSupportPageEntries
+    .filter((entry) => isVisibleToolSlug(entry.toolSlug))
+    .map((entry) => ({
+      platform: "amazon",
+      slug: entry.toolSlug,
+      supportSlug: entry.supportSlug,
+    }));
 }
 
 export function getAmazonSeoBattleTools() {
   return amazonSeoBattleToolSlugs
+    .filter((slug) => isVisibleToolSlug(slug))
     .map((slug) => getToolBySlug(slug))
     .filter((tool): tool is ToolDefinition => Boolean(tool));
 }
